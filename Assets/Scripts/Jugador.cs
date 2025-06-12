@@ -8,7 +8,7 @@ public class Jugador : MonoBehaviour
     public int dañoAtaque = 1;
     public float fuerzaSalto = 8f;
 
-    public LayerMask capaEnemigos;
+   
     public LayerMask capaSuelo;
 
     private Rigidbody2D rb;
@@ -43,70 +43,9 @@ public class Jugador : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
         }
 
-        // Interacción
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            InteractuarConEnemigoMasCercano();
-        }
-
-        // Ataque
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            AtacarEnemigos();
-        }
+        
     }
 
-    private void InteractuarConEnemigoMasCercano()
-    {
-        IPresentacion enemigoMasCercano = null;
-        float distanciaMinima = Mathf.Infinity;
-
-        foreach (Enemigo enemigo in FindObjectsByType<Enemigo>(FindObjectsSortMode.None))
-        {
-            float distancia = Vector3.Distance(transform.position, enemigo.transform.position);
-
-            if (distancia < distanciaMinima && distancia <= rangoDeInteraccion)
-            {
-                distanciaMinima = distancia;
-                enemigoMasCercano = enemigo;
-            }
-        }
-
-        if (enemigoMasCercano != null)
-        {
-            enemigoMasCercano.Accion();
-        }
-        else
-        {
-            Debug.Log("No hay enemigos cercanos.");
-        }
-    }
-
-    private void AtacarEnemigos()
-    {
-        Collider2D[] enemigos = Physics2D.OverlapCircleAll(transform.position, rangoAtaque, capaEnemigos);
-
-        foreach (Collider2D col in enemigos)
-        {
-            ITakeDamage enemigo = col.GetComponent<ITakeDamage>();
-            if (enemigo != null)
-            {
-                enemigo.TomarDaño(dañoAtaque);
-            }
-        }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        // Rango de ataque
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, rangoAtaque);
-
-        // Sensor de suelo
-        if (sensorSuelo != null)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(sensorSuelo.position, radioSensor);
-        }
-    }
+    
+  
 }
