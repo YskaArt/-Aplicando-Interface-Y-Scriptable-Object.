@@ -10,7 +10,7 @@ public class NPC : MonoBehaviour
         onInteracted?.Invoke();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
         {

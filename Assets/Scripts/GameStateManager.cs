@@ -7,7 +7,13 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private UnityEvent onGamePause;
 
     private bool isPaused = false;
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
+        }
+    }
     public void TogglePause()
     {
         isPaused = !isPaused;

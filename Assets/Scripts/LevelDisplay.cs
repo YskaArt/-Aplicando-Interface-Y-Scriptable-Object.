@@ -6,6 +6,10 @@ public class LevelDisplay : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private TMP_Text levelText;
 
+    private void Awake()
+    {
+        levelText.text = $"Nivel Actual: 1";
+    }
     private void OnEnable()
     {
         levelManager?.onLevelChanged.AddListener(UpdateLevelDisplay);
@@ -16,7 +20,7 @@ public class LevelDisplay : MonoBehaviour
         levelManager?.onLevelChanged.RemoveListener(UpdateLevelDisplay);
     }
 
-    private void UpdateLevelDisplay(string newLevel)
+    public void UpdateLevelDisplay(string newLevel)
     {
         if (levelText != null)
             levelText.text = $"Nivel Actual: {newLevel}";
